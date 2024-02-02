@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - 'appcode/**'
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -13,8 +18,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -23,15 +30,11 @@ jobs:
           docker build -t davittorchyan/my-nginx-html:latest ./appcode
           docker push davittorchyan/my-nginx-html:latest
 
-
       - name: Push Docker image to Docker Hub
         run: docker push davittorchyan/my-nginx-html:latest
 
-      - name: Push to ECR
-        id: ecr
-        uses: jwalton/gh-ecr-push@v1
-        with:
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: us-east-1
-          image:  davittorchyan/my-nginx-html:latest
+      - name: Push Docker image to ECR
+        run: |
+          # docker build "${{ inputs.docker_build_dir }}" -f "${{ inputs.path_to_dockerfile }}" -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "288296512273.dkr.ecr.us-east-1.amazonaws.com/web-app"
+        
