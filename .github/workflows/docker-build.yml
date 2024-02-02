@@ -52,3 +52,9 @@ jobs:
           docker tag davittorchyan/my-nginx-html:latest 288296512273.dkr.ecr.us-east-1.amazonaws.com/web-app:latest
           docker push 288296512273.dkr.ecr.us-east-1.amazonaws.com/web-app:latest
         continue-on-error: false
+
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition web-app-task --query taskDefinition > task-definition.json
+          aws ecs update-service --cluster web-app --service web-app-ecs-service --force-new-deployment
+
