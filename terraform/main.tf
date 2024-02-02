@@ -41,6 +41,10 @@ module "vpc" {
 
 resource "aws_ecs_cluster" "app" {
   name = local.name
+
+  tags = {
+    Name = local.name
+  }
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
