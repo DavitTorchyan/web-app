@@ -1,0 +1,42 @@
+name: Terraform Apply
+
+on:
+  push:
+    paths:
+      - "terraform/**"
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.13
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+    
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: false
+    
+    - name: Terraform Init
+      id: init
+      run: terraform init
+    
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+    
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+      continue-on-error: false
