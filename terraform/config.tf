@@ -11,6 +11,5 @@ terraform {
     bucket  = "practical-task-state-store"
     key     = "david-torchyan/terraform.tfstate"
     region  = "us-east-1"
-    profile = "david-torchyan"
   }
 }
