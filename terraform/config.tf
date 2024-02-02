@@ -1,7 +1,8 @@
 provider "aws" {
-  region                   = var.aws_region
-  shared_credentials_files = [var.aws_credential_file]
-  profile                  = var.aws_config_profile
+  region     = var.aws_region
+  # shared_credentials_files = [var.aws_credential_file]
+  access_key = process.env.AWS_ACCESS_KEY
+  secret_key = process.env.AWS_SECRET_KEY
 }
 
 
