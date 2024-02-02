@@ -48,7 +48,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Push Docker image to AWS ECR
-        run:
+        run: |
           docker tag davittorchyan/my-nginx-html:latest 288296512273.dkr.ecr.us-east-1.amazonaws.com/web-app:latest
           docker push 288296512273.dkr.ecr.us-east-1.amazonaws.com/web-app:latest
         continue-on-error: false
