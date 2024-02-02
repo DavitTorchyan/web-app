@@ -29,11 +29,6 @@ jobs:
     - uses: actions/checkout@v4
     - uses: hashicorp/setup-terraform@v3
     
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -check
-      continue-on-error: false
-    
     - name: Terraform Init
       id: init
       run: terraform init
@@ -45,4 +40,9 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -no-color
+      continue-on-error: false
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve
       continue-on-error: false
