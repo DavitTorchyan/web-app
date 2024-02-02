@@ -1,7 +1,5 @@
 provider "aws" {
   region     = var.aws_region
-  access_key = "process.env.AWS_ACCESS_KEY"
-  secret_key = "process.env.AWS_SECRET_KEY"
 }
 
 
