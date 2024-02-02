@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t davittorchyan/my-nginx-html:latest .
+          docker build -t davittorchyan/my-nginx-html:latest ./appcode
           docker push davittorchyan/my-nginx-html:latest
 
 
