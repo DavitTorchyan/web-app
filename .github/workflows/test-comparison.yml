@@ -25,7 +25,7 @@ jobs:
           curl http://localhost:12345 > output_index.html
       - name: check diff
         run: |
-          if diff index.html output_index.html &> /dev/null; then
+          if diff appcode\index.html output_index.html &> /dev/null; then
             echo "Current version of index html is deployed"
           else 
             echo "Index html not up to date" 
