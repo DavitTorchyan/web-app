@@ -55,6 +55,5 @@ jobs:
 
       - name: Download task definition
         run: |
-          aws ecs describe-task-definition --task-definition web-app-task --query taskDefinition > task-definition.json
           aws ecs update-service --cluster web-app --service web-app-ecs-service --force-new-deployment
 
