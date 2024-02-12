@@ -110,7 +110,7 @@ resource "aws_security_group" "app_sg" {
   }
 
   tags = {
-    Name = local.name
+    Name = "test"
   }
 }
 
